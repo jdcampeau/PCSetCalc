@@ -1,6 +1,7 @@
 from note_names import C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+from intervalsequences import rotation1, rotation2, rotation3, rotation4, rotation5, rotation6
 
-def find_pitch_classes(notes):
+def find_pcs_notes(notes):
     PCsets = []
     for note in notes:
         if note in C and 0 not in PCsets:
@@ -30,6 +31,45 @@ def find_pitch_classes(notes):
         else:
             continue
     return PCsets
+
+def find_pcs_booleans(booleans):
+    PCSets = []
+    i = 0
+    for boolean in booleans:
+        if boolean == True:
+            PCSets.append(i)
+        i += 1
+    return PCSets
+
+def sort_pc_sets(PCSets):
+    #No need for a special function here; just use PCSets.sort() to sort in place
+
+def get_intervals(PCSets):
+    intervals = []
+    for i in range(len(PCSets)):
+        if i < (len(PCSets) - 1):
+            intervals.append(PCSets[i+1] - PCSets[i])
+        else:
+            intervals.append(12 - PCSets[i])
+    return intervals
+
+def rotate_intervals(intervals):
+    #check intervalsequences, return rotation with largest interval on outside
+
+def check_inversion(reordered_intervals):
+    #returns prime form with all pcs given as numbers
+
+def get_prime_form(numeric_prime_form):
+    prime_form = []
+    for pc in numeric_prime_form:
+        if pc == 10:
+            prime_form.append("T")
+        elif pc == 11:
+            prime_form.append("E")
+        else:
+            prime_form.append(pc)
+    final_prime_form = ''.join(prime_form)
+    return final_prime_form
 
 
 #
