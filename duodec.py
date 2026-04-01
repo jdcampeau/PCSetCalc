@@ -1,5 +1,5 @@
 import itertools
-from functions import get_intervals, get_prime_form
+from functions import get_intervals, rotate_intervals, get_prime_form
 
 def get_set(idx_list):
     set = []
@@ -30,8 +30,12 @@ def main():
         for st in sets:
             st.sort()
             int_seq = get_intervals(st)
-            #code here: if int_seq matches column imported from hexintseqs: reordered_set = something
-            #add code for inversion check - if conditions for inversion are met:
+            if int_seq == [2, 2, 2, 2, 2, 2]:
+                continue
+            for interval in int_seq:
+                #add check for hexachord of all half-steps
+            normal_order = rotate_intervals(intervals, st)
+            best_normal_order = #add code for inversion check - if conditions for inversion are met:
                                                 #prime_form = xyz
                                             #else:
                                                 #prime_form = abc

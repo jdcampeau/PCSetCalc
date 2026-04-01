@@ -50,11 +50,24 @@ def get_intervals(PCSets):
             intervals.append(12 - PCSets[i])
     return intervals
 
-def rotate_intervals(intervals):
-    #check intervalsequences, return rotation with largest interval on outside
+def rotate_intervals(intervals, st):
+    rotated_set = None
+    if intervals in rotation1:
+        rotated_set = st
+    elif intervals in rotation2:
+        rotated_set = [st[1], st[2], st[3], st[4], st[5], st[0]]
+    elif intervals in rotation3:
+        rotated_set = [st[2], st[3], st[4], st[5], st[0], st[1]]
+    elif intervals in rotation4:
+        rotated_set = [st[3], st[4], st[5], st[0], st[1], st[2]]
+    elif intervals in rotation5:
+        rotated_set = [st[4], st[5], st[0], st[1], st[2], st[3]]
+    else:
+        rotated_set = [st[5], st[0], st[1], st[2], st[3], st[4]]
+    return rotated_set
 
-def check_inversion(reordered_intervals):
-    #returns prime form with all pcs given as numbers
+def get_best_normal_order(normal_order):
+    #takes rotated_set, and returns prime form with all pcs given as numbers
 
 def get_prime_form(numeric_prime_form):
     prime_form = []
