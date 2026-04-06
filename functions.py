@@ -2,52 +2,60 @@ from note_names import C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
 from intervalsequences import rotation1, rotation2, rotation3, rotation4, rotation5, rotation6
 
 def find_pcs_notes(notes):
-    PCsets = []
+    PCs = []
     for note in notes:
-        if note in C and 0 not in PCsets:
-            PCsets.append(0)
-        elif note in Db and 1 not in PCsets:
-            PCsets.append(1)
-        elif note in D and 2 not in PCsets:
-            PCsets.append(2)
-        elif note in Eb and 3 not in PCsets:
-            PCsets.append(3)
-        elif note in E and 4 not in PCsets:
-            PCsets.append(4)
-        elif note in F and 5 not in PCsets:
-            PCsets.append(5)
-        elif note in Gb and 6 not in PCsets:
-            PCsets.append(6)
-        elif note in G and 7 not in PCsets:
-            PCsets.append(7)
-        elif note in Ab and 8 not in PCsets:
-            PCsets.append(8)
-        elif note in A and 9 not in PCsets:
-            PCsets.append(9)
-        elif note in Bb and 10 not in PCsets:
-            PCsets.append(10)
-        elif note in B and 11 not in PCsets:
-            PCsets.append(11)
-        else:
-            continue
-    return PCsets
+        if note in C and 0 not in PCs:
+            PCs.append(0)
+        elif note in Db and 1 not in PCs:
+            PCs.append(1)
+        elif note in D and 2 not in PCs:
+            PCs.append(2)
+        elif note in Eb and 3 not in PCs:
+            PCs.append(3)
+        elif note in E and 4 not in PCs:
+            PCs.append(4)
+        elif note in F and 5 not in PCs:
+            PCs.append(5)
+        elif note in Gb and 6 not in PCs:
+            PCs.append(6)
+        elif note in G and 7 not in PCs:
+            PCs.append(7)
+        elif note in Ab and 8 not in PCs:
+            PCs.append(8)
+        elif note in A and 9 not in PCs:
+            PCs.append(9)
+        elif note in Bb and 10 not in PCs:
+            PCs.append(10)
+        elif note in B and 11 not in PCs:
+            PCs.append(11)
+    PCs.sort()
+    PCSet = []
+    small = min(PCs)
+    for pc in PCs:
+        PCSet.append(pc - small)
+    return PCset
 
 def find_pcs_booleans(booleans):
-    PCSets = []
+    PCs = []
     i = 0
     for boolean in booleans:
         if boolean == True:
-            PCSets.append(i)
+            PCs.append(i)
         i += 1
-    return PCSets
+    PCSet = []
+    small = min(PCs)
+    for pc in PCs:
+        PCSet.append(pc - small)
+    return PCSet
 
-def get_intervals(PCSets):
+def get_intervals(PCSet):
+    PCSet.sort()
     intervals = []
-    for i in range(len(PCSets)):
-        if i < (len(PCSets) - 1):
-            intervals.append(PCSets[i+1] - PCSets[i])
+    for i in range(len(PCSet)):
+        if i < (len(PCSet) - 1):
+            intervals.append(PCSet[i+1] - PCSet[i])
         else:
-            intervals.append(12 - PCSets[i])
+            intervals.append(12 - PCSet[i])
     return intervals
 
 def rotate_intervals(intervals, st):
