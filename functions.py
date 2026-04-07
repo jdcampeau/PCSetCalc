@@ -29,11 +29,10 @@ def find_pcs_notes(notes):
         elif note in B and 11 not in PCs:
             PCs.append(11)
     PCs.sort()
-    PCSet = []
     small = min(PCs)
-    for pc in PCs:
-        PCSet.append(pc - small)
-    return PCset
+    for i in range(len(PCs)):
+        PCs[i] = PCs [i] - small
+    return PCs
 
 def find_pcs_booleans(booleans):
     PCs = []
@@ -42,10 +41,9 @@ def find_pcs_booleans(booleans):
         if boolean == True:
             PCs.append(i)
         i += 1
-    PCSet = []
     small = min(PCs)
-    for pc in PCs:
-        PCSet.append(pc - small)
+    for i in range(len(PCs)):
+        PCs[i] = PCs[i] - small
     return PCSet
 
 def get_intervals(PCSet):
