@@ -73,7 +73,11 @@ def rotate_intervals(intervals, st):
     return rotated_set
 
 def get_best_normal_order(normal_order):
-    #takes rotated_set, and returns prime form with all pcs given as numbers
+    if ((normal_order[1] - normal_order[0]) > (normal_order[5] - normal_order[4])) or ((normal_order[1] - normal_order[0]) == (normal_order[5] - normal_order[4]) and (normal_order[2] - normal_order[1]) > (normal_order[4] - normal_order[3])):
+        normal_order.reverse()
+        return normal_order
+    else:
+        return normal_order
 
 def get_prime_form(numeric_prime_form):
     prime_form = []
