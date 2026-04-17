@@ -90,7 +90,7 @@ def get_best_normal_order_hex(n_o, new_intervals): #An additional get_bno func w
         new_intervals.append(max)
         bno = [0]
         pc = 0
-        for in in new_intervals:
+        for int in new_intervals:
             pc += int
             bno.append(pc)
         del bno [-1]
