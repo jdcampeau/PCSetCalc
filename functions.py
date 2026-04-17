@@ -29,9 +29,6 @@ def find_pcs_notes(notes):
         elif note in B and 11 not in PCs:
             PCs.append(11)
     PCs.sort()
-    small = min(PCs)
-    for i in range(len(PCs)):
-        PCs[i] = PCs [i] - small
     return PCs
 
 def find_pcs_booleans(booleans):
@@ -41,45 +38,67 @@ def find_pcs_booleans(booleans):
         if boolean == True:
             PCs.append(i)
         i += 1
-    small = min(PCs)
-    for i in range(len(PCs)):
-        PCs[i] = PCs[i] - small
     return PCSet
 
 def get_intervals(PCSet):
-    PCSet.sort()
+    PCs = PCSet.copy()
+    PCs.sort()
+    small = min(PCs)
+    for i in range(len(PCs)):
+        PCs[1] = PCs[1] - small
     intervals = []
-    for i in range(len(PCSet)):
-        if i < (len(PCSet) - 1):
-            intervals.append(PCSet[i+1] - PCSet[i])
+    for i in range(len(PCs)):
+        if i < (len(PCs) - 1):
+            intervals.append(PCs[i+1] - PCs[i])
         else:
-            intervals.append(12 - PCSet[i])
+            intervals.append(12 - PCs[i])
     return intervals
 
-def rotate_intervals(intervals, st):
-    rotated_set = None
-    if intervals in rotation1:
-        rotated_set = st
-    elif intervals in rotation2:
-        rotated_set = [st[1], st[2], st[3], st[4], st[5], st[0]]
-    elif intervals in rotation3:
-        rotated_set = [st[2], st[3], st[4], st[5], st[0], st[1]]
-    elif intervals in rotation4:
-        rotated_set = [st[3], st[4], st[5], st[0], st[1], st[2]]
-    elif intervals in rotation5:
-        rotated_set = [st[4], st[5], st[0], st[1], st[2], st[3]]
+def get_normal_order(intervals):
+    max = max(intervals)
+    idx = 0
+    for int in intervals:
+        if int != max:
+            idx += 1
+        else:
+            idx += 1
+            break
+    if idx != len(intervals): #This reliably handles only cases where there is only one of the largest interval within the set/chord.
+        sect_a = intervals[idx:]
+        sect_b = intervals[0:idx]
+        sect_a.extend(sect_b)
+        new_intervals = sect_a #Further study is needed to determine the most efficient code for handling all possible cases.
     else:
-        rotated_set = [st[5], st[0], st[1], st[2], st[3], st[4]]
-    return rotated_set
+        new_intervals = intervals
+    n_o = [0]
+    pc = 0
+    for int in new_intervals:
+        pc += int
+        n_o.append(pc)
+    if n_o[-1] != 12:
+        raise ValueError("Intervals passed in do not equal exactly one octave.")
+    del n_o[-1]
+    return n_o, new_intervals
 
-def get_best_normal_order(normal_order):
-    if ((normal_order[1] - normal_order[0]) > (normal_order[5] - normal_order[4])) or ((normal_order[1] - normal_order[0]) == (normal_order[5] - normal_order[4]) and (normal_order[2] - normal_order[1]) > (normal_order[4] - normal_order[3])):
-        normal_order.reverse()
-        return normal_order
+def get_best_normal_order_hex(n_o, new_intervals): #An additional get_bno func will be needed for each set type trichord-decachord
+    if any ([                                      #These will be helper funcs called within a main get_bno func based on set type
+        (n_o[1] - n_o[0]) > (n_o[5] - n_o[4]),     #No get_bno func needed for unisons, dyads, undecachords, or duodecachords
+        (n_o[1] - n_o[0]) == (n_o[5] - n_o[4]) and (n_o[2] - n_o[1]) > (n_o[4] - n_o[3])
+    ]):
+        max = new_intervals.pop()
+        new_intervals.reverse
+        new_intervals.append(max)
+        bno = [0]
+        pc = 0
+        for in in new_intervals:
+            pc += int
+            bno.append(pc)
+        del bno [-1]
     else:
-        return normal_order
+        bno = n_o
+    return bno
 
-def get_prime_form(numeric_prime_form):
+def get_prime_form(numeric_prime_form): #Does this return a list with one item or a string?
     prime_form = []
     for pc in numeric_prime_form:
         if pc == 10:
@@ -88,8 +107,8 @@ def get_prime_form(numeric_prime_form):
             prime_form.append("E")
         else:
             prime_form.append(pc)
-    final_prime_form = ''.join(prime_form)
-    return final_prime_form
+    final_pf = ''.join(prime_form)
+    return final_pf
 
 
 #
