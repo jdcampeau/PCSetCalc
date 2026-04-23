@@ -40,6 +40,49 @@ def find_pcs_booleans(booleans):
         i += 1
     return PCSet
 
+def get_dyad_interval(intervals):
+    max = max(intervals)
+    if max == 6:
+        return "Tritone (augmented 4th/diminished 5th) - 06"
+    elif max == 7:
+        return "Perfect 4th - 05"
+    elif max == 8:
+        return "Major 3rd - 04"
+    elif max == 9:
+        return "Minor 3rd - 03"
+    elif max == 10:
+        return "Whole-tone (major 2nd) - 02"
+    else:
+        return "Semitone (minor 2nd) - 01"
+
+def get_bno_decachord(intervals):
+    max = max(intervals)
+    if max == 3:
+        return "0123456789"
+    else:
+        start = 0
+        1st_idx = 0
+        2nd_idx = 0
+        for i in range(len(intervals)):
+            if intervals[i] == 2 and start == 0:
+                1st_idx = i
+                start = 1
+            if intervals[i] == 2 and start == 1:
+                2nd_idx = i
+        gap = 2nd_idx - 1st_idx
+        if gap == 1 or gap == 11:
+            return "012345678T"
+        elif gap == 2 or gap == 10:
+            return "012345679E"
+        elif gap == 3 or gap == 9:
+            return "012345689E"
+        elif gap == 4 or gap == 8:
+            return "012345789E"
+        elif gap == 5 or gap == 7:
+            return "012346789E"
+        elif gap == 6:
+            return "012356789E"
+
 def get_intervals(PCSet):
     PCs = PCSet.copy()
     PCs.sort()
