@@ -1,5 +1,6 @@
 import itertools
-from functions import get_intervals, rotate_intervals, get_prime_form
+from functions import get_intervals, get_prime_form
+from calculator import get_no_and_bno
 
 def get_set(idx_list):
     set = []
@@ -30,22 +31,17 @@ def main():
         for st in sets:
             st.sort()
             int_seq = get_intervals(st)
-            if int_seq == [2, 2, 2, 2, 2, 2]:
+            if int_seq == [2, 2, 2, 2, 2, 2] or int_seq == [1, 1, 1, 1, 1, 7]:
                 continue
-            for interval in int_seq:
-                #add check for hexachord of all half-steps
-            normal_order = rotate_intervals(intervals, st)
-            best_normal_order = #add code for inversion check - if conditions for inversion are met:
-                                                #prime_form = xyz
-                                            #else:
-                                                #prime_form = abc
-            prime_form = get_prime_form(inversion_checked)
+            normal_order = get_normal_order_outer(int_seq)
+            best_normal_order = get_bno(int_seq)
+            prime_form = get_prime_form(best_normal_order)
             if prime_form not in unique_prime_forms:
                 unique_prime_forms.append(prime_form)
         if len(unique_prime_forms) == 12:
             twelves += 1
-            pc_string = ",".join(all_pcs)
-            unique_string = ",".join(unique_prime_forms)
+            pc_string = ", ".join(all_pcs)
+            unique_string = ", ".join(unique_prime_forms)
             twelves_dict[pc_string] = unique_string
     print(f"Out of {total_arrangements / 5} unique arrangements, there are")
     print(f"{twelves} arrangements that yield twelve unique prime forms.")

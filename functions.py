@@ -1,5 +1,4 @@
 from note_names import C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
-from intervalsequences import rotation1, rotation2, rotation3, rotation4, rotation5, rotation6
 
 def find_pcs_notes(notes):
     PCs = []
