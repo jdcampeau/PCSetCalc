@@ -1,6 +1,6 @@
 import unittest
 
-from functions import find_pcs_notes, find_pcs_booleans, get_intervals, get_normal_order, get_best_normal_order, get_prime_form, pform_from_booleans, pform_from_notes
+from functions import find_pcs_notes, find_pcs_booleans, get_intervals, get_normal_order_outer, get_normal_order_inner, get_bno, get_prime_form, pform_from_booleans, pform_from_notes
 
 class TestFunctions(unittest.TestCase):
     def test_get_pcs_booleans(self):

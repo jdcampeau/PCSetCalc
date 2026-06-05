@@ -61,15 +61,15 @@ def get_bno_decachord(intervals):
         return "0123456789"
     else:
         start = 0
-        1st_idx = 0
-        2nd_idx = 0
+        idx1 = 0
+        idx2 = 0
         for i in range(len(intervals)):
             if intervals[i] == 2 and start == 0:
-                1st_idx = i
+                idx1 = i
                 start = 1
             if intervals[i] == 2 and start == 1:
-                2nd_idx = i
-        gap = 2nd_idx - 1st_idx
+                idx2 = i
+        gap = idx2 - idx1
         if gap == 1 or gap == 11:
             return "012345678T"
         elif gap == 2 or gap == 10:
@@ -97,49 +97,34 @@ def get_intervals(PCSet):
             intervals.append(12 - PCs[i])
     return intervals
 
-def get_normal_order(intervals):
-    max = max(intervals)
-    idx = 0
-    for int in intervals:
-        if int != max:
-            idx += 1
-        else:
-            idx += 1
-            break
-    if idx != len(intervals): #This reliably handles only cases where there is only one of the largest interval within the set/chord.
-        sect_a = intervals[idx:]
-        sect_b = intervals[0:idx]
-        sect_a.extend(sect_b)
-        new_intervals = sect_a #Further study is needed to determine the most efficient code for handling all possible cases.
-    else:
-        new_intervals = intervals
-    n_o = [0]
-    pc = 0
-    for int in new_intervals:
-        pc += int
-        n_o.append(pc)
-    if n_o[-1] != 12:
-        raise ValueError("Intervals passed in do not equal exactly one octave.")
-    del n_o[-1]
-    return n_o, new_intervals
-
-def get_best_normal_order_hex(n_o, new_intervals): #An additional get_bno func will be needed for each set type trichord-decachord
-    if any ([                                      #These will be helper funcs called within a main get_bno func based on set type
-        (n_o[1] - n_o[0]) > (n_o[5] - n_o[4]),     #No get_bno func needed for unisons, dyads, undecachords, or duodecachords
-        (n_o[1] - n_o[0]) == (n_o[5] - n_o[4]) and (n_o[2] - n_o[1]) > (n_o[4] - n_o[3])
-    ]):
-        max = new_intervals.pop()
-        new_intervals.reverse
-        new_intervals.append(max)
-        bno = [0]
+def get_normal_order_outer(intervals):
+    intervals_copy = intervals[:]
+    all_orders = []
+    for i in range(len(intervals)):
         pc = 0
-        for int in new_intervals:
-            pc += int
-            bno.append(pc)
-        del bno [-1]
-    else:
-        bno = n_o
-    return bno
+        order = [0]
+        for i in intervals_copy:
+            pc += i
+            order.append(pc)
+        order.pop(-1)
+        all_orders.append(order)
+        popped = intervals_copy.pop(0)
+        intervals_copy.append(popped)
+    return get_normal_order_inner(all_orders, -1)
+
+def get_normal_order_inner(list_of_orders, idx):
+    if len(list_of_orders) == 1:
+        return list_of_orders[0]
+    min_val = min(order[idx] for order in list_of_orders)
+    narrowed_list = [order for order in list_of_orders if order[idx] == min_val]
+    return get_normal_order_inner(narrowed_list, idx-1)
+
+def get_bno(intervals):
+    n_order1 = get_normal_order_outer(intervals)
+    reversed_intervals = intervals[::-1]
+    n_order2 = get_normal_order_outer(reversed_intervals)
+    return get_normal_order_inner([n_order1, n_order2], -1)
+
 
 def get_prime_form(numeric_prime_form): #Does this return a list with one item or a string?
     prime_form = []
