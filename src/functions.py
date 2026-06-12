@@ -37,19 +37,19 @@ def find_pcs_booleans(booleans):
         if boolean == True:
             PCs.append(i)
         i += 1
-    return PCSet
+    return PCs
 
 def get_dyad_interval(intervals):
-    max = max(intervals)
-    if max == 6:
+    big = max(intervals)
+    if big == 6:
         return "Tritone (augmented 4th/diminished 5th) - 06"
-    elif max == 7:
+    elif big == 7:
         return "Perfect 4th - 05"
-    elif max == 8:
+    elif big == 8:
         return "Major 3rd - 04"
-    elif max == 9:
+    elif big == 9:
         return "Minor 3rd - 03"
-    elif max == 10:
+    elif big == 10:
         return "Whole-tone (major 2nd) - 02"
     else:
         return "Semitone (minor 2nd) - 01"
@@ -87,7 +87,7 @@ def get_intervals(PCSet):
     PCs.sort()
     small = min(PCs)
     for i in range(len(PCs)):
-        PCs[1] = PCs[1] - small
+        PCs[i] = PCs[i] - small
     intervals = []
     for i in range(len(PCs)):
         if i < (len(PCs) - 1):
