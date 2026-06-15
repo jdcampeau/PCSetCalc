@@ -1,6 +1,6 @@
 from note_names import C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
 
-def find_pcs_notes(notes):
+def find_pcs_notes(notes: str) -> list[int]:
     PCs = []
     for note in notes:
         if note in C and 0 not in PCs:
@@ -30,7 +30,7 @@ def find_pcs_notes(notes):
     PCs.sort()
     return PCs
 
-def find_pcs_booleans(booleans):
+def find_pcs_booleans(booleans: list[bool]) -> list[int]:
     PCs = []
     i = 0
     for boolean in booleans:
@@ -39,7 +39,7 @@ def find_pcs_booleans(booleans):
         i += 1
     return PCs
 
-def get_dyad_interval(intervals):
+def get_dyad_interval(intervals: list[int]) -> str:
     big = max(intervals)
     if big == 6:
         return "Tritone (augmented 4th/diminished 5th) - 06"
@@ -54,7 +54,7 @@ def get_dyad_interval(intervals):
     else:
         return "Semitone (minor 2nd) - 01"
 
-def get_bno_decachord(intervals):
+def get_bno_decachord(intervals: list[int]) -> str:
     max = max(intervals)
     if max == 3:
         return "0123456789"
@@ -82,7 +82,7 @@ def get_bno_decachord(intervals):
         elif gap == 6:
             return "012356789E"
 
-def get_intervals(PCSet):
+def get_intervals(PCSet : list[int]) -> list[int]:
     PCs = PCSet.copy()
     PCs.sort()
     small = min(PCs)
@@ -96,7 +96,7 @@ def get_intervals(PCSet):
             intervals.append(12 - PCs[i])
     return intervals
 
-def get_normal_order_outer(intervals):
+def get_normal_order_outer(intervals: list[int]) -> list[int]:
     intervals_copy = intervals[:]
     all_orders = []
     for i in range(len(intervals)):
@@ -111,31 +111,34 @@ def get_normal_order_outer(intervals):
         intervals_copy.append(popped)
     return get_normal_order_inner(all_orders, -1)
 
-def get_normal_order_inner(list_of_orders, idx):
+def get_normal_order_inner(list_of_orders: list[int], idx: int) -> list[int]:
     if len(list_of_orders) == 1:
         return list_of_orders[0]
     min_val = min(order[idx] for order in list_of_orders)
     narrowed_list = [order for order in list_of_orders if order[idx] == min_val]
     return get_normal_order_inner(narrowed_list, idx-1)
 
-def get_bno(intervals):
+def get_bno(intervals: list[int]) -> list[int]:
     n_order1 = get_normal_order_outer(intervals)
     reversed_intervals = intervals[::-1]
     n_order2 = get_normal_order_outer(reversed_intervals)
     return get_normal_order_inner([n_order1, n_order2], -1)
 
 
-def get_prime_form(numeric_prime_form): #Does this return a list with one item or a string?
+def get_prime_form(numeric_prime_form: list[int]) -> str:
     prime_form = []
     for pc in numeric_prime_form:
         if pc == 10:
             prime_form.append("T")
-        elif pc == 11:
+            continue
+        if pc == 11:
             prime_form.append("E")
+            continue
         else:
-            prime_form.append(pc)
+            string_pc = f"{pc}"
+            prime_form.append(string_pc)
     final_pf = ''.join(prime_form)
-    return final_pf
+    return f"<{final_pf}>"
 
 
 #
