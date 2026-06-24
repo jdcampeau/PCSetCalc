@@ -33,4 +33,25 @@ class TestFunctions(unittest.TestCase):
         expected = "Minor 3rd - 03"
         self.assertEqual(get_dyad_interval(intervals), expected)
 
-    #def test_decachord(self)
+    #def test_decachord(self):
+
+    def test_get_normal_order_outer(self):
+        intvls = [2, 1, 2, 1, 3, 3]
+        expected = [0, 2, 3, 5, 6, 9]
+        self.assertEqual(get_normal_order_outer(intvls), expected)
+
+    def test_get_bno(self):
+        intvls = [2, 1, 2, 1, 3, 3]
+        expected = [0, 1, 3, 4, 6, 9]
+        self.assertEqual(get_bno(intvls), expected)
+
+    def test_get_prime_form(self):
+        bno = [0, 2, 4, 6, 8, 10]
+        expected = "<02468T>"
+        self.assertEqual(get_prime_form(bno), expected)
+
+    #def test_get_icv(self):
+
+    #def test_get_name(self):
+
+    #def test_full_calculation(self):

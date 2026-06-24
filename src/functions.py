@@ -125,9 +125,9 @@ def get_bno(intervals: list[int]) -> list[int]:
     return get_normal_order_inner([n_order1, n_order2], -1)
 
 
-def get_prime_form(numeric_prime_form: list[int]) -> str:
+def get_prime_form(bno: list[int]) -> str:
     prime_form = []
-    for pc in numeric_prime_form:
+    for pc in bno:
         if pc == 10:
             prime_form.append("T")
             continue
@@ -139,6 +139,18 @@ def get_prime_form(numeric_prime_form: list[int]) -> str:
             prime_form.append(string_pc)
     final_pf = ''.join(prime_form)
     return f"<{final_pf}>"
+
+#def get_icv(intervals: list[int]) -> list[int]:
+
+#def get_name(pform: str) -> str:
+
+def full_calculation(intervals: list[int]) -> list[int | str]:
+    n_o = get_normal_order_outer(intervals)
+    bno = get_bno(intervals)
+    pform = get_prime_form(bno)
+    #icv = get_icv(intervals)
+    #name = get_name(pform)
+    #return [n_o, bno, pform, icv, name]
 
 
 #
