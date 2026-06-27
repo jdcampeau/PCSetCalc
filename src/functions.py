@@ -140,15 +140,36 @@ def get_prime_form(bno: list[int]) -> str:
     final_pf = ''.join(prime_form)
     return f"<{final_pf}>"
 
-#def get_icv(intervals: list[int]) -> list[int]:
+def get_icv(pcset: list[int]) -> str:
+    icv = [0, 0, 0, 0, 0, 0]
+    for i in range(len(pcset)):
+        for j in range(i+1, len(pcset)):
+            interval = pcset[j] - pcset[i]
+            if interval > 6:
+                interval = (12 + pcset[i]) - pcset[j]
+            if interval == 1:
+                icv[0] += 1
+            elif interval == 2:
+                icv[1] += 1
+            elif interval == 3:
+                icv[2] += 1
+            elif interval == 4:
+                icv[3] += 1
+            elif interval == 5:
+                icv[4] += 1
+            else:
+                icv[5] += 1
+    joined = "".join(str(num) for num in icv)
+    return f"<{joined}>"
 
 #def get_name(pform: str) -> str:
 
-def full_calculation(intervals: list[int]) -> list[int | str]:
+def full_calculation(pcset: list[int]) -> list[int | str]:
+    intervals = get_intervals(pcset)
     n_o = get_normal_order_outer(intervals)
     bno = get_bno(intervals)
     pform = get_prime_form(bno)
-    #icv = get_icv(intervals)
+    icv = get_icv(pcset)
     #name = get_name(pform)
     #return [n_o, bno, pform, icv, name]
 
