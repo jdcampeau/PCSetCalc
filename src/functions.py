@@ -138,7 +138,7 @@ def get_prime_form(bno: list[int]) -> str:
             string_pc = f"{pc}"
             prime_form.append(string_pc)
     final_pf = ''.join(prime_form)
-    return f"<{final_pf}>"
+    return f"({final_pf})"
 
 def get_icv(pcset: list[int]) -> str:
     icv = [0, 0, 0, 0, 0, 0]
@@ -170,8 +170,7 @@ def full_calculation(pcset: list[int]) -> list[int | str]:
     bno = get_bno(intervals)
     pform = get_prime_form(bno)
     icv = get_icv(pcset)
-    #name = get_name(pform)
-    #return [n_o, bno, pform, icv, name]
+    return [n_o, bno, pform, icv]
 
 
 #

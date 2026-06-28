@@ -47,7 +47,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_get_prime_form(self):
         bno = [0, 2, 4, 6, 8, 10]
-        expected = "<02468T>"
+        expected = "(02468T)"
         self.assertEqual(get_prime_form(bno), expected)
 
     #def test_get_icv(self):
