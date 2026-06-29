@@ -39,25 +39,25 @@ def find_pcs_booleans(booleans: list[bool]) -> list[int]:
         i += 1
     return PCs
 
-def get_dyad_interval(intervals: list[int]) -> str:
+def get_dyad_name(intervals: list[int]) -> str:
     big = max(intervals)
     if big == 6:
-        return "Tritone (augmented 4th/diminished 5th) - 06"
+        return "Tritone (augmented 4th/diminished 5th) - (06)"
     elif big == 7:
-        return "Perfect 4th - 05"
+        return "Perfect 4th - (05)"
     elif big == 8:
-        return "Major 3rd - 04"
+        return "Major 3rd - (04)"
     elif big == 9:
-        return "Minor 3rd - 03"
+        return "Minor 3rd - (03)"
     elif big == 10:
-        return "Whole-tone (major 2nd) - 02"
+        return "Whole-tone (major 2nd) - (02)"
     else:
-        return "Semitone (minor 2nd) - 01"
+        return "Semitone (minor 2nd) - (01)"
 
-def get_bno_decachord(intervals: list[int]) -> str:
-    max = max(intervals)
-    if max == 3:
-        return "0123456789"
+def get_pf_decachord(intervals: list[int]) -> str:
+    biggest = max(intervals)
+    if biggest == 3:
+        return "(0123456789)"
     else:
         start = 0
         idx1 = 0
@@ -70,17 +70,17 @@ def get_bno_decachord(intervals: list[int]) -> str:
                 idx2 = i
         gap = idx2 - idx1
         if gap == 1 or gap == 11:
-            return "012345678T"
+            return "(012345678T)"
         elif gap == 2 or gap == 10:
-            return "012345679E"
+            return "(012345679T)"
         elif gap == 3 or gap == 9:
-            return "012345689E"
+            return "(012345689T)"
         elif gap == 4 or gap == 8:
-            return "012345789E"
+            return "(012345789T)"
         elif gap == 5 or gap == 7:
-            return "012346789E"
+            return "(012346789T)"
         elif gap == 6:
-            return "012356789E"
+            return "(012356789T)"
 
 def get_intervals(PCSet : list[int]) -> list[int]:
     PCs = PCSet.copy()
@@ -163,14 +163,3 @@ def get_icv(pcset: list[int]) -> str:
     return f"<{joined}>"
 
 #def get_name(pform: str) -> str:
-
-def full_calculation(pcset: list[int]) -> list[int | str]:
-    intervals = get_intervals(pcset)
-    n_o = get_normal_order_outer(intervals)
-    bno = get_bno(intervals)
-    pform = get_prime_form(bno)
-    icv = get_icv(pcset)
-    return [n_o, bno, pform, icv]
-
-
-#

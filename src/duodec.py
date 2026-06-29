@@ -1,6 +1,6 @@
 import itertools
-from functions import get_intervals, get_prime_form
-from calculator import get_no_and_bno
+from functions import *
+from calculator import *
 
 def get_set(idx_list):
     set = []

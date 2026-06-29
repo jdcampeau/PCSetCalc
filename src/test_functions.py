@@ -24,16 +24,20 @@ class TestFunctions(unittest.TestCase):
     def test_dyad_tritone(self):
         pcs = [8, 2]
         intervals = get_intervals(pcs)
-        expected = "Tritone (augmented 4th/diminished 5th) - 06"
-        self.assertEqual(get_dyad_interval(intervals), expected)
+        expected = "Tritone (augmented 4th/diminished 5th) - (06)"
+        self.assertEqual(get_dyad_name(intervals), expected)
 
     def test_dyad_m3(self):
         pcs = [11, 2]
         intervals = get_intervals(pcs)
-        expected = "Minor 3rd - 03"
-        self.assertEqual(get_dyad_interval(intervals), expected)
+        expected = "Minor 3rd - (03)"
+        self.assertEqual(get_dyad_name(intervals), expected)
 
-    #def test_decachord(self):
+    def test_get_pf_decachord(self):
+        intervals = [[1, 2, 1, 1, 1, 1, 2, 1, 1, 1], [1, 2, 1, 1, 1, 2, 1, 1, 1, 1], [1, 2, 1, 1, 2, 1, 1, 1, 1, 1]]
+        expected = ["(012346789T)", "(012345789T)", "(012345689T)"]
+        self.assertEqual([get_pf_decachord(intervals[0]), get_pf_decachord(intervals[1]), get_pf_decachord(intervals[2])], expected)
+
 
     def test_get_normal_order_outer(self):
         intvls = [2, 1, 2, 1, 3, 3]
@@ -50,7 +54,10 @@ class TestFunctions(unittest.TestCase):
         expected = "(02468T)"
         self.assertEqual(get_prime_form(bno), expected)
 
-    #def test_get_icv(self):
+    def test_get_icv(self):
+        pcsets = [[0, 1, 2, 5, 6, 9], [3, 4, 7, 9], [2, 5, 6, 7, 10, 11]]
+        expected = ["<313431>", "<111111>", "<313431>"]
+        self.assertEqual([get_icv(pcsets[0]), get_icv(pcsets[1]), get_icv(pcsets[2])], expected)
 
     #def test_get_name(self):
 
