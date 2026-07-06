@@ -1,11 +1,12 @@
 from functions import *
 
-def main(pcs: list[bool] | str) -> tuple[list:int, list:int, str, str]:
+def main(boolean_input: bool, pcs: list[bool] | str) -> tuple[list:int, list:int, str, str]:
     if boolean_input == True:
-        pcset = get_pcs_booleans(pcs)
+        pcset = find_pcs_booleans(pcs)
     else:
-        pcset = get_pcs_notes(pcs)
+        pcset = find_pcs_notes(pcs)
     intervals = get_intervals(pcset)
+    size = len(pcset)
     if size == 1:
         return pcset, [0], "Unison - 0", "<000000>"
     elif size == 2:
@@ -19,4 +20,4 @@ def main(pcs: list[bool] | str) -> tuple[list:int, list:int, str, str]:
         n_o = get_normal_order_outer(intervals)
         bno = get_bno(intervals)
         prime_form = get_prime_form(bno)
-        return n_o, bno, prime_form, icv
+        return [n_o, bno, prime_form, icv]

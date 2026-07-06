@@ -83,6 +83,8 @@ def get_pf_decachord(intervals: list[int]) -> str:
             return "(012356789T)"
 
 def get_intervals(PCSet : list[int]) -> list[int]:
+    if len(PCSet) == 1:
+        return [None]
     PCs = PCSet.copy()
     PCs.sort()
     small = min(PCs)
