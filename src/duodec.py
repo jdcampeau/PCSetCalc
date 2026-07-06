@@ -45,3 +45,5 @@ def main():
             twelves_dict[pc_string] = unique_string
     print(f"Out of {total_arrangements / 5} unique arrangements, there are")
     print(f"{twelves} arrangements that yield twelve unique prime forms.")
+    #add step that writes dictionary of perfect arrangements to a new txt file
+    #key = pc arrangement, value = list of sets
