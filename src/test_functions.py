@@ -67,7 +67,10 @@ class TestFunctions(unittest.TestCase):
         expected = [[0, 4, 7], [0, 3, 7], "(037)", "<001110>"]
         self.assertEqual(main(True, input_list), expected)
 
-    #def test_calculator_main_hexachord(self):
-    #input_bool = True
-    #input_list =  [True, True, True, False, False, True, True, False, False, True, False, False]
-    #expected = [[0, 1, 4, 5, 6, 9], [0, 1, 2, 5, 6, 9], "(012569)", "<313431>"]
+    def test_calculator_main_hexachord(self):
+        #input_bool = True
+        input_list =  [True, True, False, False, True, True, True, False, False, True, False, False]
+        expected = [[0, 1, 4, 5, 6, 9], [0, 1, 2, 5, 6, 9], "(012569)", "<313431>"]
+        self.assertEqual(main(True, input_list), expected)
+
+    #test calculator_main for all chord sizes. Think of possible input mistakes; create and test errors for those scenarios
