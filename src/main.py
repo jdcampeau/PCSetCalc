@@ -8,7 +8,7 @@ class App(tk.Tk):
         self.title("Musical Set Theory: Prime Form Calculator")
         self.geometry("600x300")
 
-        self.label = tk.Label(self, text="Enter your name:", font=("Arial", 12))
+        self.label = tk.Label(self, text="Enter a list of notes, separated by commas:", font=("Arial", 12))
         self.label.pack(pady=10)
 
         self.entry = tk.Entry(self, font=("Arial", 12))
@@ -19,7 +19,8 @@ class App(tk.Tk):
 
     def handle_click(self):
         user_text = self.entry.get()
-        self.label.config(text=f"Here's the text you entered: {user_text}")
+        pform = full_calc(False, user_text)[2]
+        self.label.config(text=f"Prime form: {pform}")
 
 if __name__ == "__main__":
     app = App()

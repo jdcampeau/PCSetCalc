@@ -1,7 +1,14 @@
 from note_names import C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
 
-def find_pcs_notes(notes: str) -> list[int]:
+def string_to_list(user_input: str) -> list[int]:
+    new_list = user_input.split(",")
+    for i in range(len(new_list)):
+        new_list[i] = new_list[i].strip()
+    return new_list
+
+def find_pcs_notes(user_input: str) -> list[int]:
     PCs = []
+    notes = string_to_list(user_input)
     for note in notes:
         if note in C and 0 not in PCs:
             PCs.append(0)
