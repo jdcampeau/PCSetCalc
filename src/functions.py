@@ -118,9 +118,13 @@ def get_normal_order_outer(intervals: list[int]) -> list[int]:
         all_orders.append(order)
         popped = intervals_copy.pop(0)
         intervals_copy.append(popped)
-    return get_normal_order_inner(all_orders, -1)
+    unique_orders = []
+    for ord in all_orders:
+        if ord not in unique_orders:
+            unique_orders.append(ord)
+    return get_normal_order_inner(unique_orders, -1)
 
-def get_normal_order_inner(list_of_orders: list[int], idx: int) -> list[int]:
+def get_normal_order_inner(list_of_orders: list[list[int]], idx: int) -> list[list[int]] | list[int]:
     if len(list_of_orders) == 1:
         return list_of_orders[0]
     min_val = min(order[idx] for order in list_of_orders)
@@ -131,6 +135,8 @@ def get_bno(intervals: list[int]) -> list[int]:
     n_order1 = get_normal_order_outer(intervals)
     reversed_intervals = intervals[::-1]
     n_order2 = get_normal_order_outer(reversed_intervals)
+    if n_order1 == n_order2:
+        return n_order1
     return get_normal_order_inner([n_order1, n_order2], -1)
 
 

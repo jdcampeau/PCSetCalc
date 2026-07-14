@@ -7,7 +7,7 @@ from calculator import *
 class TestFunctions(unittest.TestCase):
 
     def test_find_pcs_notes(self):
-        input_notes = ["Eb", 5, "E#", "Cx", 2, "d", "d#", "fx"]
+        input_notes = "Eb, 5, E#, Cx, 2, d, d#, fx"
         expected = [2, 3, 5, 7]
         self.assertEqual(find_pcs_notes(input_notes), expected)
 
@@ -65,12 +65,24 @@ class TestFunctions(unittest.TestCase):
         #input_bool = True
         input_list = [False, False, True, False, False, False, False, True, False, False, False, True]
         expected = [[0, 4, 7], [0, 3, 7], "(037)", "<001110>"]
-        self.assertEqual(main(True, input_list), expected)
+        self.assertEqual(full_calc(True, input_list), expected)
 
     def test_calculator_main_hexachord(self):
         #input_bool = True
         input_list =  [True, True, False, False, True, True, True, False, False, True, False, False]
         expected = [[0, 1, 4, 5, 6, 9], [0, 1, 2, 5, 6, 9], "(012569)", "<313431>"]
-        self.assertEqual(main(True, input_list), expected)
+        self.assertEqual(full_calc(True, input_list), expected)
+
+    def test_calculator_main_cluster(self):
+        #input_bool = True
+        input_list = [False, False, False, True, True, True, True, True, False, False, False, False]
+        expected = [[0, 1, 2, 3, 4], [0, 1, 2, 3, 4], "(01234)", "<432100>"]
+        self.assertEqual(full_calc(True, input_list), expected)
+
+    def test_calculator_main_wtscale(self):
+        #input = True
+        input_list = [False, True, False, True, False, True, False, True, False, True, False, True]
+        expected = [[0, 2, 4, 6, 8, 10], [0, 2, 4, 6, 8, 10], "(02468T)", "<060603>"]
+        self.assertEqual(full_calc(True, input_list), expected)
 
     #test calculator_main for all chord sizes. Think of possible input mistakes; create and test errors for those scenarios
