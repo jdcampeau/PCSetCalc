@@ -14,7 +14,7 @@ def full_calc(boolean_input: bool, pcs: list[bool] | str) -> tuple[list:int, lis
     if size == 1:
         return pcset, [0], "Unison - 0", "<000000>"
     elif size == 2:
-        return [0, min(intervals)], get_bno(intervals), get_dyad_name, get_icv(pcset)
+        return [0, min(intervals)], get_bno(intervals), get_dyad_name(intervals), get_icv(pcset)
     elif size == 11:
         return get_normal_order_outer(intervals), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "0123456789T", "<10101010105>"
     elif size == 12:

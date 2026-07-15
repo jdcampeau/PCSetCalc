@@ -6,10 +6,16 @@ def string_to_list(user_input: str) -> list[int]:
         new_list[i] = new_list[i].strip()
     return new_list
 
+def clean_note(note:str) -> str:
+    low = note.lower()
+    chars_to_avoid = {" ", "-", "!", "@", "$", "%", "^" "&", "*", "(", ")", "<", ">", "?", "_", "=", "+", '"', "'", ":", ";", ',', '.', '/', '[', ']', "{", "}", "|", '`', "~", }
+    return "".join([char for char in low if char not in chars_to_avoid])
+
 def find_pcs_notes(user_input: str) -> list[int]:
     PCs = []
     notes = string_to_list(user_input)
-    for note in notes:
+    for messy_note in notes:
+        note = clean_note(messy_note)
         if note in C and 0 not in PCs:
             PCs.append(0)
         elif note in Db and 1 not in PCs:
@@ -49,17 +55,17 @@ def find_pcs_booleans(booleans: list[bool]) -> list[int]:
 def get_dyad_name(intervals: list[int]) -> str:
     big = max(intervals)
     if big == 6:
-        return "Tritone (augmented 4th/diminished 5th) - (06)"
+        return "(06) - Tritone (Augmented 4th/diminished 5th)"
     elif big == 7:
-        return "Perfect 4th - (05)"
+        return "(05) - Perfect 4th"
     elif big == 8:
-        return "Major 3rd - (04)"
+        return "(04) - Major 3rd"
     elif big == 9:
-        return "Minor 3rd - (03)"
+        return "(03) - minor 3rd"
     elif big == 10:
-        return "Whole-tone (major 2nd) - (02)"
+        return "(02) - Whole-tone (Major 2nd)"
     else:
-        return "Semitone (minor 2nd) - (01)"
+        return "(01) - Semitone (minor 2nd)"
 
 def get_pf_decachord(intervals: list[int]) -> str:
     biggest = max(intervals)
