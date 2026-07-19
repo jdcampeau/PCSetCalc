@@ -12,7 +12,7 @@ def full_calc(boolean_input: bool, pcs: list[bool] | str) -> tuple[list:int, lis
     intervals = get_intervals(pcset)
     size = len(pcset)
     if size == 1:
-        return pcset, [0], "Unison - 0", "<000000>"
+        return pcset, [0], "(0) - Unison", "<000000>"
     elif size == 2:
         return [0, min(intervals)], get_bno(intervals), get_dyad_name(intervals), get_icv(pcset)
     elif size == 11:

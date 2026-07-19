@@ -25,11 +25,14 @@ class App(tk.Tk):
 
     def handle_click(self):
         pitches = self.entry.get()
-        chord_data = full_calc(False, pitches)
-        pform = chord_data[2]
-        icv = chord_data[3]
-        self.pform_label.config(text=f"Prime form: {pform}")
-        self.icv_label.config(text=f"Interval class vector: {icv}")
+        if pitches == "":
+            self.pform_label.config(text=f"Please enter one or more notes.")
+        else:
+            chord_data = full_calc(False, pitches)
+            pform = chord_data[2]
+            icv = chord_data[3]
+            self.pform_label.config(text=f"Prime form: {pform}")
+            self.icv_label.config(text=f"Interval class vector: {icv}")
 
 if __name__ == "__main__":
     app = App()
