@@ -7,8 +7,9 @@ Click [here](https://musictheory.pugetsound.edu/mt21c/SetTheorySection.html) for
 
 ### Prerequisites
 
--Python 3
--Tkinter
+- Python3
+
+- Tkinter
 
 ### Installation
 
