@@ -33,9 +33,9 @@ def main():
             int_seq = get_intervals(st)
             if int_seq == [2, 2, 2, 2, 2, 2] or int_seq == [1, 1, 1, 1, 1, 7]:
                 continue
-            normal_order = get_normal_order_outer(int_seq)
-            best_normal_order = get_bno(int_seq)
-            prime_form = get_prime_form(best_normal_order)
+            normal_order = get_pfn_helper_a(int_seq)
+            pfn = get_pf_numeric(int_seq)
+            prime_form = get_prime_form(pfn)
             if prime_form not in unique_prime_forms:
                 unique_prime_forms.append(prime_form)
         if len(unique_prime_forms) == 12:

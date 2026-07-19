@@ -111,7 +111,7 @@ def get_intervals(PCSet : list[int]) -> list[int]:
             intervals.append(12 - PCs[i])
     return intervals
 
-def get_normal_order_outer(intervals: list[int]) -> list[int]:
+def get_pfn_helper_a(intervals: list[int]) -> list[int]:
     intervals_copy = intervals[:]
     all_orders = []
     for i in range(len(intervals)):
@@ -128,27 +128,27 @@ def get_normal_order_outer(intervals: list[int]) -> list[int]:
     for ord in all_orders:
         if ord not in unique_orders:
             unique_orders.append(ord)
-    return get_normal_order_inner(unique_orders, -1)
+    return get_pfn_helper_b(unique_orders, -1)
 
-def get_normal_order_inner(list_of_orders: list[list[int]], idx: int) -> list[list[int]] | list[int]:
+def get_pfn_helper_b(list_of_orders: list[list[int]], idx: int) -> list[list[int]] | list[int]:
     if len(list_of_orders) == 1:
         return list_of_orders[0]
     min_val = min(order[idx] for order in list_of_orders)
     narrowed_list = [order for order in list_of_orders if order[idx] == min_val]
-    return get_normal_order_inner(narrowed_list, idx-1)
+    return get_pfn_helper_b(narrowed_list, idx-1)
 
-def get_bno(intervals: list[int]) -> list[int]:
-    n_order1 = get_normal_order_outer(intervals)
+def get_pf_numeric(intervals: list[int]) -> list[int]:
+    candidate1 = get_pfn_helper_a(intervals)
     reversed_intervals = intervals[::-1]
-    n_order2 = get_normal_order_outer(reversed_intervals)
-    if n_order1 == n_order2:
-        return n_order1
-    return get_normal_order_inner([n_order1, n_order2], -1)
+    candidate2 = get_pfn_helper_a(reversed_intervals)
+    if candidate1 == candidate2:
+        return candidate1
+    return get_pfn_helper_b([candidate1, candidate2], -1)
 
 
-def get_prime_form(bno: list[int]) -> str:
+def get_prime_form(pfn: list[int]) -> str:
     prime_form = []
-    for pc in bno:
+    for pc in pfn:
         if pc == 10:
             prime_form.append("T")
             continue
@@ -183,4 +183,8 @@ def get_icv(pcset: list[int]) -> str:
     joined = "".join(str(num) for num in icv)
     return f"<{joined}>"
 
-#def get_name(pform: str) -> str:
+#def get_name(normal_order: str, forte_number: str) -> str:
+
+#def get_normal_order() -> str:
+
+#def get_best_normal_order() -> str:
